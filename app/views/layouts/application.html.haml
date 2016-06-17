@@ -4,10 +4,36 @@
     %title MyTeam
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    %link{:href => "https://code.getmdl.io/1.1.3/material.blue-green.min.css", :rel => "stylesheet"}/
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    - if notice
-      %p.notice= notice
-    - elsif alert
-      %p.alert= alert
-    = yield
+    %div.mdl-layout.mdl-js-layout
+      %header.mdl-layout__header.mdl-layout__header--scroll
+        %div.mdl-layout__header-row
+          %span.mdl-layout-title
+            %a{href: "/"}
+              = image_tag "LogoBlanco.png", width: 200
+          %div.mdl-layout-spacer
+          %nav.mdl-navigation
+            - if user_signed_in?
+              %span
+                Bienvenido 
+                = current_user.email
+            - else
+              = link_to "Inicia sesión", new_user_session_path, class: 'mdl-navigation__link'
+              = link_to "Regístrate", new_user_registration_path, class: 'mdl-navigation__link'
+      - if user_signed_in?
+        %div.mdl-layout__drawer
+          %span.mdl-layout-title
+            Menu
+          %nav.mdl-navigation
+            = link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: 'mdl-navigation__link'
+      %main.mdl-layout__content
+        - if notice
+          %p
+            = notice
+        - elsif alert
+          %p
+            = alert
+        
+        = yield
