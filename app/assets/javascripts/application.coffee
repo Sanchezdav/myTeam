@@ -4,5 +4,5 @@
 #= require material
 #= require_tree .
 
-document.addEventListener 'page:change', ->
+document.addEventListener 'turbolinks:load', ->
   componentHandler.upgradeDom()

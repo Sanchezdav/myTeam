@@ -1,0 +1,35 @@
+%div.row.center-xs.big-padding
+  %div.mdl-card.col-xs-10.col-sm-8.col-md-6.col-lg-5.shadow-card
+    %h2 Regístrate
+    %hr.no-margin
+    %div.big-padding
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!
+        %div.row.middle-xs
+          %div.col-xs-2.text-right
+            = material_icon.account_circle.css_class('my-blue')
+          %div.col-xs-10
+            %div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.full-width
+              = f.email_field :email, autofocus: true, id: 'email', class: 'mdl-textfield__input'
+              = f.label "Correo electrónico", for: 'email', class: 'mdl-textfield__label'
+        %div.row.middle-xs
+          %div.col-xs-2.text-right
+            = material_icon.vpn_key.css_class('my-blue')
+          %div.col-xs-10
+            %div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.full-width
+              = f.password_field :password, autocomplete: "off", id: 'password', class: 'mdl-textfield__input'
+              = f.label 'Contraseña', for: 'password', class: 'mdl-textfield__label'
+              - if @minimum_password_length
+                %span.mdl-textfield__error
+                  %em (<%= @minimum_password_length %> caracteres como mínimo)
+        %div.row.middle-xs
+          %div.col-xs-2.text-right
+            = material_icon.https.css_class('my-blue')
+          %div.col-xs-10
+            %div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.full-width
+              = f.password_field :password_confirmation, autocomplete: "off", id: 'password_confirmation', class: 'mdl-textfield__input'
+              = f.label 'Confirma contraseña', for: 'password_confirmation', class: 'mdl-textfield__label'
+        %div.big-margin-top
+          = f.submit "Regístrate", class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+      %div.big-margin-top
+        = render "devise/shared/links"
